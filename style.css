@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url("https://charmlane.com/wp-content/uploads/2024/01/old-money-clothing-style-1024x576.png");
+    background-size: cover;      /* imaginea acoperă tot ecranul */
+    background-position: center; /* centrare imagine */
+    background-repeat: no-repeat;/* să nu se repete imaginea */
+    color: #111;
+}
+
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 70px;
+background: #080707;
+background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.vertical-text {
+  transform: rotate(-90deg);
+  color: #fff;
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* ===== PAGINA PRINCIPALĂ ===== */
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  padding: 25px 60px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 30px;
+  font: serif;
+  font-weight: bolder;
+
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 6px 12px;
+}
+
+.search-box button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  flex: 1;
+}
+
+/* ---- Imaginea stângă ---- */
+.black-shape {
+  background: #000;
+  width: 1000px;
+  height: 420px;
+  border-top-right-radius: 150px;
+  border-bottom-right-radius: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.black-shape img {
+  width: 700px;
+  border-radius: 200px;
+  object-fit: cover;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* ---- Textul dreapta ---- */
+.footer {
+    position: fixed;       /* fixează în partea de jos a paginii */
+    bottom: 0;             /* la baza paginii */
+    left: 0;               /* începe de la stânga */
+    width: 100%;           /* ocupă toată lățimea */
+    display: flex;
+    flex-direction: column;  /* stivuire verticală */
+    align-items: center;     /* centrare pe orizontală */
+    justify-content: center; /* centrare pe verticală */
+    padding: 20px 0;         /* spațiu sus/jos */
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 2px;
+    background-color: #fff;  /* opțional, să fie vizibil */
+    
+}
+
+.footer h1 {
+    font-size: 42px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+.footer .logo-img {
+    width: 120px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
