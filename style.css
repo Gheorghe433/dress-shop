@@ -10,14 +10,14 @@ body {
     height: 100vh;
     overflow: hidden;
     background-image: url("https://charmlane.com/wp-content/uploads/2024/01/old-money-clothing-style-1024x576.png");
-    background-size: cover;      /* imaginea acoperă tot ecranul */
-    background-position: center; /* centrare imagine */
-    background-repeat: no-repeat;/* să nu se repete imaginea */
+    background-size: cover;      
+    background-position: center; 
+    background-repeat: no-repeat;
     color: #111;
 }
 
 
-/* ===== SIDEBAR ===== */
+
 .sidebar {
   width: 70px;
 background: #080707;
@@ -37,7 +37,7 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   font-size: 13px;
 }
 
-/* ===== PAGINA PRINCIPALĂ ===== */
+
 .page {
   flex: 1;
   display: flex;
@@ -45,7 +45,7 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   justify-content: space-between;
 }
 
-/* ===== NAVBAR ===== */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -91,7 +91,7 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   padding: 6px 10px;
 }
 
-/* ===== HERO SECTION ===== */
+
 .hero {
   display: flex;
   align-items: center;
@@ -100,7 +100,7 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   flex: 1;
 }
 
-/* ---- Imaginea stângă ---- */
+
 .black-shape {
   background: #000;
   width: 1000px;
@@ -119,21 +119,21 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   box-shadow: 0 6px 15px rgba(0,0,0,0.4);
 }
 
-/* ---- Textul dreapta ---- */
+
 .footer {
-    position: fixed;       /* fixează în partea de jos a paginii */
-    bottom: 0;             /* la baza paginii */
-    left: 0;               /* începe de la stânga */
-    width: 100%;           /* ocupă toată lățimea */
+    position: fixed;       
+    bottom: 0;             
+    left: 0;              
+    width: 100%;          
     display: flex;
-    flex-direction: column;  /* stivuire verticală */
-    align-items: center;     /* centrare pe orizontală */
-    justify-content: center; /* centrare pe verticală */
-    padding: 20px 0;         /* spațiu sus/jos */
+    flex-direction: column;  
+    align-items: center;     
+    justify-content: center; 
+    padding: 20px 0;         
     font-size: 13px;
     color: #666;
     letter-spacing: 2px;
-    background-color: #fff;  /* opțional, să fie vizibil */
+    background-color: #fff;  
     
 }
 
