@@ -175,7 +175,6 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-
 .contact-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
