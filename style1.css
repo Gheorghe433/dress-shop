@@ -152,18 +152,18 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   width: 300px;
 }
 
-/* Products row layout */
+
 .produse {
   display: flex;
   gap: 20px;
   padding: 20px;
   align-items: flex-start;
-  overflow-x: auto; /* allow horizontal scroll on small screens */
+  overflow-x: auto; 
   -webkit-overflow-scrolling: touch;
 }
 
 .produse .produs {
-  flex: 0 0 auto; /* don't shrink, preserve width */
+  flex: 0 0 auto; 
 }
 
 .produse .produs img {
@@ -175,7 +175,6 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Contact form styles */
 .contact-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
