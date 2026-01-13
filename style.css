@@ -173,6 +173,36 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
     margin-bottom: 10px;
 }
 
+#but {
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid var(--accent-bg);
+  background: var(--accent-bg);
+  color: var(--accent-foreground);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 300ms ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+#but:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  background: var(--text-color);
+  border-color: var(--text-color);
+}
+
+#but:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
 
 
 
