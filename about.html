@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Despre Magazin</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style1.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <ul class="side-nav">
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="Contact.html">Contact</a></li>
+      </ul>
+    </aside>
+
+    <main class="page">
+      <header class="navbar">
+        <ul class="nav-links">
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="Contact.html">Contact</a></li>
+        </ul>
+
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="search-box">
+            <input type="text" placeholder="OLD MONEY" />
+            <button>🔍</button>
+          </div>
+          <button id="theme-toggle" aria-label="Toggle theme" title="Toggle theme" class="theme-btn">🌗</button>
+        </div>
+      </header>
+
+      <div class="about-page">
+        <div class="about-hero">
+          <h1>Despre Magazinul Nostru</h1>
+          <p class="lead">
+            Bine ai venit la magazinul nostru — un spațiu dedicat eleganței clasice și calității atemporale.
+            Ne concentrăm pe piese selectate ale brandului Ralph Lauren, cunoscut pentru croiala impecabilă
+            și materialele premium.
+          </p>
+        </div>
+
+        <section class="about-grid">
+          <article class="about-card">
+            <h2>Despre hainele Ralph Lauren</h2>
+            <p>
+              Ralph Lauren este un simbol al rafinamentului american. Colecțiile includ polo-uri iconice,
+              jachete, pantaloni și accesorii realizate cu atenție pentru detalii. Fiecare produs pe care îl
+              oferim este verificat pentru autenticitate și calitate.
+            </p>
+            <ul>
+              <li><strong>Materiale premium:</strong> bumbac, lână și mescla de fibre atent alese.</li>
+              <li><strong>Croială clasică:</strong> design-uri care rezistă în timp și rămân elegante sezon după sezon.</li>
+              <li><strong>Autenticitate:</strong> verificăm fiecare produs pentru a garanta proveniența și calitatea.</li>
+            </ul>
+          </article>
+
+          <aside class="about-card about-image">
+            <img src="images/ralph-sample.jpg" alt="Ralph Lauren" onerror="this.style.display='none'" />
+            <p class="caption">Piese rafinate, croială atentă și materiale premium.</p>
+          </aside>
+        </section>
+
+        <section class="about-values">
+          <h2>Ce oferim clienților noștri</h2>
+          <p>
+            Ne străduim să oferim o experiență plăcută de cumpărare: descrieri clare ale produselor, fotografii
+            reale, politici de returnare transparente și suport rapid pentru orice întrebare legată de mărimi
+            sau livrare.
+          </p>
+          <a class="btn-primary" href="Contact.html">Contactează-ne</a>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <img class="logo-img" src="https://i.pinimg.com/474x/c3/54/e2/c354e2fb10eff981c580d43ef2fc41d4.jpg" alt="Logo">
+      </footer>
+    </main>
+
+    <script src="theme.js"></script>
+  </body>
+</html>

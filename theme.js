@@ -37,6 +37,23 @@
       try{ localStorage.setItem(storageKey, now); }catch(e){ /* ignore */ }
     });
   }
+  
+  
+  function runEntrance() {
+    
+    const targets = document.querySelectorAll('.page, .about-page, .contact-container');
+    if(!targets || targets.length === 0) return;
+    
+    window.setTimeout(() => {
+      targets.forEach(el => el.classList.add('loaded'));
+    }, 80);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runEntrance);
+  } else {
+    runEntrance();
+  }
 })();
 
 

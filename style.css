@@ -2,8 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Times New Roman', serif;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
 
 :root {
@@ -31,14 +34,18 @@ body {
 }
 
 body {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-    background-image: url("https://charmlane.com/wp-content/uploads/2024/01/old-money-clothing-style-1024x576.png");
-    background-size: cover;      
-    background-position: center; 
-    background-repeat: no-repeat;
-    color: #111;
+  display: flex;
+  min-height: 100vh;
+  overflow: auto; 
+  background-image: url("https://charmlane.com/wp-content/uploads/2024/01/old-money-clothing-style-1024x576.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color, #111);
 }
 
 
@@ -94,6 +101,33 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
   font-weight: bolder;
 
 }
+
+
+h1, h2, h3, h4 {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--text-color);
+  line-height: 1.2;
+}
+
+h1 { font-size: 36px; font-weight: 700; }
+h2 { font-size: 24px; font-weight: 600; }
+h3 { font-size: 18px; font-weight: 600; }
+
+
+.btn, button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 10px;
+  transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms;
+}
+.btn-primary, button.primary {
+  background: var(--accent-bg);
+  color: var(--accent-foreground);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+.btn-primary:hover, button.primary:hover { transform: translateY(-3px); }
 
 .search-box {
   display: flex;
