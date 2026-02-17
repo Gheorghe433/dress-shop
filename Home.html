@@ -15,34 +15,25 @@
   <main class="page">
     <h1>Home</h1>
 
-    <div class="produse">
-    
-    <div class="produs">
-      <img src="product-images/polo jaket.webp" alt="polo jaket">
-      <h2>Ralph Lauren</h2>
-      <p>polo jaket lauren.</p>
-      <p><strong>Preț: 600 MDL</strong></p>
-      <button>buy now</button>
-    </div>
+    <div class="produse" id="products-container"></div>
 
-    
-    <div class="produs">
-      <img src="product-images/polo pants.webp" alt="polo pants">
-      <h2>Ralph lauren</h2>
-      <p>polo pants lauren</p>
-      <p><strong>Preț: 1.000 MDL</strong></p>
-      <button>buy now</button>
-    </div>
-
-    
-    <div class="produs">
-      <img src="product-images/Polo shirt.webp" alt="polo shirt">
-      <h2>Ralph Lauren"</h2>
-      <p>polo shirt lauren</p>
-      <p><strong>Preț: 800 MDL</strong></p>
-      <button>buy now</button>
-    </div>
-    </div>
+    <script src="home-content.js"></script>
+    <script>
+      
+      const container = document.getElementById('products-container');
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'produs';
+        card.innerHTML = `
+          <img src="${product.img}" alt="${product.name.trim()}">
+          <h2>Ralph Lauren</h2>
+          <p>${product.desc.trim()}</p>
+          <p><strong>Preț: ${product.price.trim()}</strong></p>
+          <button>buy now</button>
+        `;
+        container.appendChild(card);
+      });
+    </script>
   </main>
 <script src="content.js"></script>
   <script src="theme.js"></script>
