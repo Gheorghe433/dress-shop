@@ -137,6 +137,27 @@ h3 { font-size: 18px; font-weight: 600; }
   overflow: hidden;
 }
 
+.search-hint {
+  display: none;
+  margin-left: 8px;
+  font-size: 0.9rem;
+
+  color: var(--accent-foreground);
+  background: var(--accent-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.search-hint.visible {
+  display: inline;
+  opacity: 1;
+  transform: translateX(0);
+}
 .search-box input {
   border: none;
   outline: none;
@@ -149,6 +170,62 @@ h3 { font-size: 18px; font-weight: 600; }
   cursor: pointer;
   padding: 6px 10px;
 }
+
+
+
+.nav-links a {
+  position: relative;
+  transition: color 240ms ease;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background: var(--accent-bg);
+  transition: width 240ms ease;
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+.nav-links a:hover {
+  color: var(--accent-bg);
+}
+
+
+
+.navbar {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+.page.loaded .navbar {
+  transform: translateY(0);
+  opacity: 1;
+}
+.navbar:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+
+
+#but:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+
+
+.hero .right .logo-img {
+  transform: scale(0.98);
+  transition: transform 600ms ease;
+}
+.page.loaded .hero .black-shape img,
+.page.loaded .hero .right .logo-img {
+  transform: scale(1);
+}
+
 
 
 .hero {
@@ -207,6 +284,16 @@ h3 { font-size: 18px; font-weight: 600; }
     margin-bottom: 10px;
 }
 
+
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
 #but {
   padding: 12px 28px;
   font-size: 16px;
@@ -220,7 +307,9 @@ h3 { font-size: 18px; font-weight: 600; }
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-transform: uppercase;
   letter-spacing: 1px;
-  position: fixed;
+ 
+  
+  position: absolute;
   bottom: 20px;
   right: 20px;
   z-index: 100;
