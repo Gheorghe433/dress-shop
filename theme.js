@@ -20,12 +20,10 @@
     try{ return localStorage.getItem(storageKey); }catch(e){ return null; }
   }
 
-  
   const stored = currentStored();
   if(stored){
     applyTheme(stored);
   } else {
-    
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     applyTheme(prefersDark ? 'dark' : 'light');
   }
@@ -37,13 +35,11 @@
       try{ localStorage.setItem(storageKey, now); }catch(e){  }
     });
   }
-  
-  
+
   function runEntrance() {
-    
     const targets = document.querySelectorAll('.page, .about-page, .contact-container');
     if(!targets || targets.length === 0) return;
-    
+
     window.setTimeout(() => {
       targets.forEach(el => el.classList.add('loaded'));
     }, 80);
@@ -56,7 +52,6 @@
   }
 })();
 
-
 const button = document.getElementById('but');
 button.addEventListener('click', function() {
   console.log('Gheorghe Rosca');
@@ -68,7 +63,6 @@ const searchHint = document.getElementById('search-hint');
 if (searchInput && searchHint) {
   searchInput.addEventListener('input', () => {
     if (searchInput.value.trim().length > 0) {
-      
       searchHint.textContent = 'interested in ' + searchInput.value + ' polo shirt';
       searchHint.classList.add('visible');
     } else {
@@ -76,5 +70,3 @@ if (searchInput && searchHint) {
     }
   });
 }
-
-

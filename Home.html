@@ -15,23 +15,114 @@
   <main class="page">
     <h1>Home</h1>
 
+    <div class="category-filter">
+      <button class="filter-btn active" data-category="all">All</button>
+      <button class="filter-btn" data-category="shirts"> Shirts</button>
+      <button class="filter-btn" data-category="pants">Pants</button>
+      <button class="filter-btn" data-category="shoes">
+        Shoes</button>
+    </div>
+
+    <div id="loading-spinner" class="loading-spinner hidden">
+      <div class="spinner"></div>
+      <p>Se încarcă produsele...</p>
+    </div>
+
+    <div id="error-message" class="error-message hidden">
+      <p id="error-text"></p>
+      <button onclick="location.reload()">Încearcă din nou</button>
+    </div>
+
     <div class="produse" id="products-container"></div>
 
+    <script src="api.js"></script>
     <script src="home-content.js"></script>
     <script>
-      
       const container = document.getElementById('products-container');
-      products.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'produs';
-        card.innerHTML = `
-          <img src="${product.img}" alt="${product.name.trim()}">
-          <h2>Ralph Lauren</h2>
-          <p>${product.desc.trim()}</p>
-          <p><strong>Preț: ${product.price.trim()}</strong></p>
-          <button>buy now</button>
-        `;
-        container.appendChild(card);
+      const loadingSpinner = document.getElementById('loading-spinner');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+      let allProductsData = null;
+
+      const categoryNames = {
+        shirts: ' Shirts',
+        pants: 'Pants',
+        shoes: ' Shoes'
+      };
+
+      async function loadProducts(selectedCategory = null) {
+        try {
+          loadingSpinner.classList.remove('hidden');
+          errorMessage.classList.add('hidden');
+          container.innerHTML = '';
+
+          if (!allProductsData) {
+            allProductsData = await API.getAllProducts();
+          }
+
+          loadingSpinner.classList.add('hidden');
+
+          const categoriesToShow = selectedCategory && selectedCategory !== 'all'
+            ? { [selectedCategory]: allProductsData[selectedCategory] }
+            : allProductsData;
+
+          Object.keys(categoriesToShow).forEach(categoryKey => {
+            const categorySection = document.createElement('div');
+            categorySection.className = 'category-section';
+
+            const categoryTitle = document.createElement('h2');
+            categoryTitle.className = 'category-title';
+            categoryTitle.textContent = categoryNames[categoryKey];
+            categorySection.appendChild(categoryTitle);
+
+            const productsGrid = document.createElement('div');
+            productsGrid.className = 'products-grid';
+
+            categoriesToShow[categoryKey].forEach(product => {
+              const card = document.createElement('div');
+              card.className = 'produs';
+              card.innerHTML = `
+                <img src="${product.img}" alt="${product.name.trim()}" loading="lazy">
+                <h3>Ralph Lauren</h3>
+                <p>${product.desc.trim()}</p>
+                <p><strong>Preț: ${product.price.trim()}</strong></p>
+                <button class="buy-btn" data-product-id="${product.id}">buy now</button>
+              `;
+              productsGrid.appendChild(card);
+            });
+
+            categorySection.appendChild(productsGrid);
+            container.appendChild(categorySection);
+          });
+
+          document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productId = this.dataset.productId;
+              console.log('Added product to cart:', productId);
+              alert('Product added to cart!');
+            });
+          });
+
+        } catch (error) {
+          console.error('Error loading products:', error);
+          loadingSpinner.classList.add('hidden');
+          errorMessage.classList.remove('hidden');
+          errorText.textContent = 'Eroare la încărcarea produselor: ' + error.message;
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        loadProducts();
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            const category = this.dataset.category;
+            loadProducts(category);
+          });
+        });
       });
     </script>
   </main>
