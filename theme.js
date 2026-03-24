@@ -1,4 +1,3 @@
-
 (function(){
   const root = document.documentElement;
   const toggle = document.getElementById('theme-toggle');
@@ -52,21 +51,63 @@
   }
 })();
 
-const button = document.getElementById('but');
-button.addEventListener('click', function() {
-  console.log('Gheorghe Rosca');
-});
 
+const CATEGORIES = ['shirts', 'pants', 'shoes'];
+
+function doSearch(query) {
+  if (!query) return;
+  const q = query.trim().toLowerCase();
+
+  
+  const matched = CATEGORIES.find(cat => q.includes(cat) || cat.includes(q));
+
+  if (matched) {
+    
+    window.location.href = 'Home.html?category=' + matched;
+  } else {
+    
+    window.location.href = 'Home.html?search=' + encodeURIComponent(query.trim());
+  }
+}
 
 const searchInput = document.getElementById('search-input');
-const searchHint = document.getElementById('search-hint');
-if (searchInput && searchHint) {
+const searchHint  = document.getElementById('search-hint');
+const searchBtn   = searchInput && searchInput.closest('.search-box')
+                      ? searchInput.closest('.search-box').querySelector('button')
+                      : null;
+
+if (searchInput) {
+  
   searchInput.addEventListener('input', () => {
-    if (searchInput.value.trim().length > 0) {
-      searchHint.textContent = 'interested in ' + searchInput.value + ' polo shirt';
-      searchHint.classList.add('visible');
-    } else {
-      searchHint.classList.remove('visible');
+    if (searchHint) {
+      if (searchInput.value.trim().length > 0) {
+        searchHint.textContent = 'interested in ' + searchInput.value + ' polo shirt';
+        searchHint.classList.add('visible');
+      } else {
+        searchHint.classList.remove('visible');
+      }
     }
+  });
+
+  
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      doSearch(searchInput.value);
+    }
+  });
+}
+
+
+if (searchBtn) {
+  searchBtn.addEventListener('click', () => {
+    doSearch(searchInput.value);
+  });
+}
+
+
+const button = document.getElementById('but');
+if (button) {
+  button.addEventListener('click', function() {
+    console.log('Gheorghe Rosca');
   });
 }
