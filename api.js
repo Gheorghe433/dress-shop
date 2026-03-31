@@ -63,58 +63,106 @@ const mockProducts = {
     ]
 };
 
+const DUMMYJSON_CATEGORIES = {
+    shirts: 'https://dummyjson.com/products/category/mens-shirts',
+    pants: null, 
+    shoes: 'https://dummyjson.com/products/category/mens-shoes'
+};
+
+const normalizeDummyProduct = (product, targetCategory, productIndex) => {
+    // Folosim imaginile din mockProducts fără repetare
+    const mockImages = mockProducts[targetCategory]?.map(p => p.img) || [];
+
+    return {
+        id: product.id,
+        category: targetCategory,
+        name: product.title,
+        desc: product.description,
+        price: `${product.price} USD`,
+        img: mockImages[productIndex] || product.thumbnail || product.images?.[0] || ''
+    };
+};
+
+const fetchDummyProducts = async () => {
+    try {
+        const results = await Promise.allSettled(
+            Object.entries(DUMMYJSON_CATEGORIES)
+                .filter(([_, url]) => url !== null) 
+                .map(async ([category, url]) => {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`DummyJSON ${category} request failed: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if (!data.products || !Array.isArray(data.products)) {
+                        throw new Error(`DummyJSON ${category} response format unexpected`);
+                    }
+                    return { category, products: data.products };
+                })
+        );
+
+        const grouped = { shirts: [], pants: [], shoes: [] };
+
+        results.forEach(result => {
+            if (result.status === 'fulfilled') {
+                const { category, products } = result.value;
+                const normalized = products.map((p, index) => normalizeDummyProduct(p, category, index));
+                grouped[category].push(...normalized);
+            } else {
+                console.warn(`Failed to load ${result.reason.category}:`, result.reason);
+            }
+        });
+
+        
+        Object.keys(DUMMYJSON_CATEGORIES).forEach(category => {
+            if (DUMMYJSON_CATEGORIES[category] === null && mockProducts[category]) {
+                grouped[category] = mockProducts[category];
+            }
+        });
+
+        return grouped;
+    } catch (error) {
+        console.warn('Failed to load DummyJSON, using mockProducts as fallback:', error);
+        return mockProducts;
+    }
+};
+
 const API = {
-    getProductsByCategory: (category) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (mockProducts[category]) {
-                    resolve(mockProducts[category]);
-                } else {
-                    reject(new Error(`Category "${category}" not found`));
+    getProductsByCategory: async (category) => {
+        const all = await fetchDummyProducts();
+        if (all[category]) {
+            return all[category];
+        }
+        throw new Error(`Category "${category}" not found`);
+    },
+
+    getAllProducts: async () => {
+        return fetchDummyProducts();
+    },
+
+    getProductById: async (productId) => {
+        const products = await API.getAllProducts();
+        let found = null;
+        Object.values(products).forEach(categoryProducts => {
+            const product = categoryProducts.find(p => String(p.id) === String(productId));
+            if (product) found = product;
+        });
+        if (found) return found;
+        throw new Error(`Product with ID ${productId} not found`);
+    },
+
+    searchProducts: async (query) => {
+        const products = await API.getAllProducts();
+        const lowerQuery = query.toLowerCase();
+        const results = [];
+        Object.values(products).forEach(categoryProducts => {
+            categoryProducts.forEach(product => {
+                if (product.name.toLowerCase().includes(lowerQuery) ||
+                    product.desc.toLowerCase().includes(lowerQuery)) {
+                    results.push(product);
                 }
-            }, 500 + Math.random() * 500);
+            });
         });
-    },
-
-    getAllProducts: () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(mockProducts);
-            }, 800);
-        });
-    },
-
-    getProductById: (productId) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                let found = null;
-                Object.values(mockProducts).forEach(categoryProducts => {
-                    const product = categoryProducts.find(p => p.id === productId);
-                    if (product) found = product;
-                });
-                if (found) {
-                    resolve(found);
-                } else {
-                    reject(new Error(`Product with ID ${productId} not found`));
-                }
-            }, 300);
-        });
-    },
-
-    searchProducts: (query) => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                const results = [];
-                Object.values(mockProducts).forEach(categoryProducts => {
-                    categoryProducts.forEach(product => {
-                        if (product.name.toLowerCase().includes(query.toLowerCase()) ||
-                            product.desc.toLowerCase().includes(query.toLowerCase())) {
-                            results.push(product);
-                        }
-                    });
-                });
-                resolve(results);
-            }, 400);
-        });
+        return results;
     }
 };
