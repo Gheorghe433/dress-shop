@@ -81,6 +81,14 @@
                 <button class="buy-btn" data-product-id="${item.id}">buy now</button>
                 <button class="wishlist-btn" data-product-id="${item.id}" style="background:none; border:none; cursor:pointer; font-size:20px; padding:8px;">❤️</button>
               </div>
+              <div class="size-menu" data-product-id="${item.id}" style="display:none; flex-wrap:wrap; gap:8px; margin-top:10px;">
+                <button type="button" class="size-option" data-product-id="${item.id}" data-size="XS" style="padding:6px 10px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer;">XS</button>
+                <button type="button" class="size-option" data-product-id="${item.id}" data-size="S" style="padding:6px 10px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer;">S</button>
+                <button type="button" class="size-option" data-product-id="${item.id}" data-size="M" style="padding:6px 10px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer;">M</button>
+                <button type="button" class="size-option" data-product-id="${item.id}" data-size="L" style="padding:6px 10px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer;">L</button>
+                <button type="button" class="size-option" data-product-id="${item.id}" data-size="XL" style="padding:6px 10px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer;">XL</button>
+                <button type="button" class="cancel-size" data-product-id="${item.id}" style="background:none; border:none; color:#555; text-decoration:underline; cursor:pointer; padding:0;">Anulează</button>
+              </div>
             `;
             productsGrid.appendChild(card);
           });
@@ -92,10 +100,34 @@
           document.querySelectorAll('.buy-btn').forEach(btn => {
             btn.addEventListener('click', function() {
               const productId = parseInt(this.dataset.productId);
-              // Find product details from wishlist
+              const sizeMenu = document.querySelector(`.size-menu[data-product-id="${productId}"]`);
+              if (sizeMenu) {
+                sizeMenu.style.display = 'flex';
+              }
+            });
+          });
+
+          document.querySelectorAll('.size-option').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productId = parseInt(this.dataset.productId);
+              const selectedSize = this.dataset.size || 'M';
               const product = wishlist.getWishlist().find(p => p.id === productId);
               if (product) {
-                cart.addItem(productId, product);
+                cart.addItem(productId, product, selectedSize);
+              }
+              const sizeMenu = document.querySelector(`.size-menu[data-product-id="${productId}"]`);
+              if (sizeMenu) {
+                sizeMenu.style.display = 'none';
+              }
+            });
+          });
+
+          document.querySelectorAll('.cancel-size').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productId = parseInt(this.dataset.productId);
+              const sizeMenu = document.querySelector(`.size-menu[data-product-id="${productId}"]`);
+              if (sizeMenu) {
+                sizeMenu.style.display = 'none';
               }
             });
           });

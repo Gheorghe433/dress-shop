@@ -29,19 +29,20 @@ class Cart {
         this.renderCart();
     }
 
-    addItem(productId, productDetails) {
-        const existingItem = this.items.find(item => item.id === productId);
+    addItem(productId, productDetails, size = '8') {
+        const existingItem = this.items.find(item => item.id === productId && item.size === size);
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
             this.items.push({
                 id: productId,
+                size,
                 quantity: 1,
                 ...productDetails
             });
         }
         this.saveCart();
-        alert('Produs adăugat în coș!');
+        alert(`Produs adăugat în coș (mărime ${size})!`);
         if (this.cartPanel && this.cartPanel.style.display === 'flex') {
             this.renderCart();
         }
@@ -130,6 +131,7 @@ class Cart {
                         <div style="flex:1; min-width:0;">
                             <strong style="display:block; margin-bottom:6px;">${item.name || 'Produs'}</strong>
                             <p style="margin:0 0 6px; color:#555; font-size:0.95rem;">${item.desc || ''}</p>
+                            <p style="margin:0 0 6px; color:#555; font-size:0.95rem;">Mărime: ${item.size || 'M'}</p>
                             <span style="font-size:0.95rem; color:#333;">${item.price || ''}</span>
                         </div>
                         <div style="display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between;">
