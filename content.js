@@ -4,12 +4,14 @@ const content= {
       "Home.html",
       "about.html",
       "Contact.html",
+      "login.html"
       "wishlist.html"
     ],
     textHTML:[
       "Home",
       "About",
       "Contact",
+      "Login"
       "Wishlist"
     ]
 }
