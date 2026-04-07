@@ -3,12 +3,14 @@ const content= {
     fileHTML:[
       "Home.html",
       "about.html",
-      "Contact.html"  
+      "Contact.html",
+      "login.html"
     ],
     textHTML:[
       "Home",
       "About",
-      "Contact"
+      "Contact",
+      "Login"
     ]
 }
 
