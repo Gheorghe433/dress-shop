@@ -70,7 +70,7 @@ const DUMMYJSON_CATEGORIES = {
 };
 
 const normalizeDummyProduct = (product, targetCategory, productIndex) => {
-    // Folosim imaginile din mockProducts fără repetare
+    
     const mockImages = mockProducts[targetCategory]?.map(p => p.img) || [];
 
     return {
