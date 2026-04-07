@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist — Magazinul Meu</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+  <aside class="sidebar">
+
+  </aside>
+
+  <main class="page">
+    <header class="navbar">
+      <div class="navbar-actions" style="display:flex; align-items:center; gap:12px; margin-left:auto;">
+        <div class="search-box" style="display:flex; align-items:center; gap:6px;">
+          <input type="text" id="search-input" placeholder="Caută produse" style="padding:8px 10px; border-radius:8px; border:1px solid #ccc;">
+          <button type="button" style="padding:8px 10px; border-radius:8px; border:none; cursor:pointer; background:var(--accent-bg); color:var(--accent-foreground);">🔍</button>
+        </div>
+
+        <button id="cart-btn" type="button" style="position:relative; padding:8px 12px; border-radius:8px; border:none; cursor:pointer; background:var(--accent-bg); color:var(--accent-foreground);">
+          🛒
+          <span id="cart-badge" style="position:absolute; top:-5px; right:-5px; background:red; color:white; border-radius:50%; padding:2px 6px; font-size:12px; display:none;">0</span>
+        </button>
+      </div>
+    </header>
+
+    <h1>Wishlist</h1>
+
+    <div id="loading-spinner" class="loading-spinner hidden">
+      <div class="spinner"></div>
+      <p>Se încarcă wishlist...</p>
+    </div>
+
+    <div id="error-message" class="error-message hidden">
+      <p id="error-text"></p>
+      <button onclick="location.reload()">Încearcă din nou</button>
+    </div>
+
+    <div class="produse" id="wishlist-container"></div>
+
+    <script src="api.js"></script>
+    <script src="wishlist.js"></script>
+    <script src="cart.js"></script>
+    <script src="home-content.js"></script>
+    <script>
+      const container = document.getElementById('wishlist-container');
+      const loadingSpinner = document.getElementById('loading-spinner');
+      const errorMessage = document.getElementById('error-message');
+      const errorText = document.getElementById('error-text');
+
+      async function loadWishlist() {
+        try {
+          loadingSpinner.classList.remove('hidden');
+          errorMessage.classList.add('hidden');
+          container.innerHTML = '';
+
+          const wishlistItems = wishlist.getWishlist();
+
+          if (wishlistItems.length === 0) {
+            container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted-color);">Wishlist-ul tău este gol. Adaugă produse favorite!</p>';
+            loadingSpinner.classList.add('hidden');
+            return;
+          }
+
+          // Create a grid for wishlist items
+          const productsGrid = document.createElement('div');
+          productsGrid.className = 'products-grid';
+
+          wishlistItems.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'produs';
+            card.innerHTML = `
+              <img src="${item.img}" alt="${item.name.trim()}" loading="lazy">
+              <h3>Ralph Lauren</h3>
+              <p>${item.desc.trim()}</p>
+              <p><strong>Preț: ${item.price.trim()}</strong></p>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <button class="buy-btn" data-product-id="${item.id}">buy now</button>
+                <button class="wishlist-btn" data-product-id="${item.id}" style="background:none; border:none; cursor:pointer; font-size:20px; padding:8px;">❤️</button>
+              </div>
+            `;
+            productsGrid.appendChild(card);
+          });
+
+          container.appendChild(productsGrid);
+          loadingSpinner.classList.add('hidden');
+
+          // Add event listeners
+          document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productId = parseInt(this.dataset.productId);
+              // Find product details from wishlist
+              const product = wishlist.getWishlist().find(p => p.id === productId);
+              if (product) {
+                cart.addItem(productId, product);
+              }
+            });
+          });
+
+          document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productId = parseInt(this.dataset.productId);
+              const product = wishlist.getWishlist().find(p => p.id === productId);
+              if (product) {
+                wishlist.toggleItem(productId, product);
+                // Reload wishlist after removal
+                setTimeout(() => loadWishlist(), 100);
+              }
+            });
+          });
+
+        } catch (error) {
+          console.error('Error loading wishlist:', error);
+          loadingSpinner.classList.add('hidden');
+          errorMessage.classList.remove('hidden');
+          errorText.textContent = 'Eroare la încărcarea wishlist-ului: ' + error.message;
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        loadWishlist();
+
+        // Search functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+          const query = document.getElementById('search-input').value.trim();
+          if (query) {
+            window.location.href = `Home.html?search=${encodeURIComponent(query)}`;
+          }
+        });
+      });
+    </script>
+  </main>
+<script src="content.js"></script>
+  <script src="theme.js"></script>
+</body>
+</html>
