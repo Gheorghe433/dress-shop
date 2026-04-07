@@ -6,6 +6,7 @@ const content= {
       "Contact.html",
       "login.html",
       "wishlist.html",
+      
     ],
     textHTML:[
       "Home",
@@ -13,6 +14,7 @@ const content= {
       "Contact",
       "Login",
       "Wishlist",
+      
     ]
 }
 
