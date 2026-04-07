@@ -62,6 +62,7 @@
     </div>
 
     <script src="api.js"></script>
+    <script src="wishlist.js"></script>
     <script src="cart.js"></script>
     <script src="home-content.js"></script>
     <script>
@@ -113,7 +114,10 @@
                 <h3>Ralph Lauren</h3>
                 <p>${product.desc.trim()}</p>
                 <p><strong>Preț: ${product.price.trim()}</strong></p>
-                <button class="buy-btn" data-product-id="${product.id}">buy now</button>
+                <div style="display:flex; gap:8px; align-items:center;">
+                  <button class="buy-btn" data-product-id="${product.id}">buy now</button>
+                  <button class="wishlist-btn" data-product-id="${product.id}" style="background:none; border:none; cursor:pointer; font-size:20px; padding:8px;">🤍</button>
+                </div>
               `;
               productsGrid.appendChild(card);
             });
@@ -133,6 +137,24 @@
               });
               if (product) {
                 cart.addItem(productId, product);
+              }
+            });
+          });
+
+          // Update wishlist hearts
+          wishlist.updateHearts();
+
+          document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const productId = parseInt(this.dataset.productId);
+              // Find product details
+              let product = null;
+              Object.values(allProductsData).forEach(category => {
+                const found = category.find(p => p.id === productId);
+                if (found) product = found;
+              });
+              if (product) {
+                wishlist.toggleItem(productId, product);
               }
             });
           });
