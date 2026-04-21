@@ -111,6 +111,62 @@ class Cart {
         }
     }
 
+    renderCart() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalItemsSpan = document.getElementById('cart-total-items');
+        const totalPriceSpan = document.getElementById('cart-total-price');
+
+        if (!cartItemsContainer) {
+            return;
+        }
+
+        cartItemsContainer.innerHTML = '';
+
+        if (this.items.length === 0) {
+            cartItemsContainer.innerHTML = '<p style="text-align:center; color:#666;">Coșul este gol.</p>';
+        } else {
+            this.items.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.style.display = 'flex';
+                itemDiv.style.alignItems = 'center';
+                itemDiv.style.gap = '12px';
+                itemDiv.style.padding = '12px';
+                itemDiv.style.border = '1px solid #ddd';
+                itemDiv.style.borderRadius = '8px';
+                itemDiv.style.background = '#fff';
+
+                itemDiv.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
+                    <div style="flex:1;">
+                        <h4 style="margin:0; font-size:14px; font-weight:600;">${item.name}</h4>
+                        <p style="margin:4px 0; font-size:12px; color:#666;">Mărime: ${item.size}</p>
+                        <p style="margin:4px 0; font-size:12px; color:#666;">Cantitate: ${item.quantity}</p>
+                        <p style="margin:4px 0; font-size:14px; font-weight:600;">${item.price}</p>
+                    </div>
+                    <button class="remove-item-btn" data-index="${index}" style="background:none; border:none; cursor:pointer; font-size:18px; color:#dc3545;">×</button>
+                `;
+
+                cartItemsContainer.appendChild(itemDiv);
+            });
+
+            // Add event listeners for remove buttons
+            document.querySelectorAll('.remove-item-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    this.items.splice(index, 1);
+                    this.saveCart();
+                });
+            });
+        }
+
+        if (totalItemsSpan) {
+            totalItemsSpan.textContent = this.getTotalItems();
+        }
+        if (totalPriceSpan) {
+            totalPriceSpan.textContent = this.formatUSD(this.getTotalPriceUSD());
+        }
+    }
+
     bindCartEvents() {
         if (this.cartButton) {
             this.cartButton.addEventListener('click', () => this.toggleCartPanel());
@@ -181,6 +237,8 @@ class Cart {
         // Simple validation
         const formData = new FormData(this.checkoutForm);
         const data = Object.fromEntries(formData);
+        // Skip validation for demo
+        /*
         if (!data['first-name'] || !data['last-name'] || !data.address || !data['postal-code'] || !data['card-number'] || !data.expiry || !data.cvv) {
             alert('Te rugăm să completezi toate câmpurile.');
             return;
@@ -209,6 +267,9 @@ class Cart {
             alert('CVV-ul este invalid. Trebuie să conțină 3 cifre.');
             return;
         }
+        */
+        // Save order
+        this.saveOrder(data);
         // Simulate payment
         alert('Plată procesată cu succes! Comanda a fost finalizată.');
         this.items = [];
@@ -243,52 +304,28 @@ class Cart {
         this.cartPanel.style.display = 'none';
     }
 
-    renderCart() {
-        const itemsContainer = document.getElementById('cart-items');
-        const totalItemsNode = document.getElementById('cart-total-items');
-        const totalPriceNode = document.getElementById('cart-total-price');
-        if (!itemsContainer || !totalItemsNode || !totalPriceNode) {
-            return;
-        }
+    saveOrder(formData) {
+        const orders = this.loadOrders();
+        const order = {
+            id: Date.now(), // simple ID
+            date: new Date().toISOString(),
+            items: [...this.items],
+            total: this.getTotalPriceUSD(),
+            customer: {
+                firstName: formData['first-name'],
+                lastName: formData['last-name'],
+                address: formData.address,
+                postalCode: formData['postal-code']
+            },
+            status: 'Plasată'
+        };
+        orders.push(order);
+        localStorage.setItem('dressShopOrders', JSON.stringify(orders));
+    }
 
-        itemsContainer.innerHTML = '';
-        if (this.items.length === 0) {
-            itemsContainer.innerHTML = '<p style="margin:0; color:#444;">Coșul este gol.</p>';
-        } else {
-            this.items.forEach(item => {
-                const { amount, currency } = this.parsePrice(item.price || '0 USD');
-                const amountInUSD = this.convertToUSD(amount, currency);
-                const lineTotal = Math.round(amountInUSD * item.quantity * 100) / 100;
-                const lineTotalText = this.formatUSD(lineTotal);
-                const unitPriceText = `${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${currency}`;
-
-                const itemElement = document.createElement('div');
-                itemElement.style.padding = '12px';
-                itemElement.style.border = '1px solid #ddd';
-                itemElement.style.borderRadius = '10px';
-                itemElement.style.background = '#f9f9f9';
-                itemElement.innerHTML = `
-                    <div style="display:flex; gap:12px; align-items:flex-start;">
-                        <img src="${item.img || ''}" alt="${item.name || 'Produs'}" style="width:72px; height:72px; object-fit:cover; border-radius:12px; flex-shrink:0; background:#eee;">
-                        <div style="flex:1; min-width:0;">
-                            <strong style="display:block; margin-bottom:6px;">${item.name || 'Produs'}</strong>
-                            <p style="margin:0 0 6px; color:#555; font-size:0.95rem;">${item.desc || ''}</p>
-                            <p style="margin:0 0 6px; color:#555; font-size:0.95rem;">Mărime: ${item.size || 'M'}</p>
-                            <span style="font-size:0.95rem; color:#333; display:block; margin-bottom:4px;">Preț unitar: ${unitPriceText}</span>
-                            <span style="font-size:0.95rem; color:#333; font-weight:600;">Subtotal: ${lineTotalText}</span>
-                        </div>
-                        <div style="display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between;">
-                            <span style="font-weight:700; color:#111;">x${item.quantity}</span>
-                        </div>
-                    </div>
-                `;
-                itemsContainer.appendChild(itemElement);
-            });
-        }
-
-        totalItemsNode.textContent = this.getTotalItems();
-        const totalPriceUSD = Math.round(this.getTotalPriceUSD() * 100) / 100;
-        totalPriceNode.textContent = this.formatUSD(totalPriceUSD);
+    loadOrders() {
+        const orders = localStorage.getItem('dressShopOrders');
+        return orders ? JSON.parse(orders) : [];
     }
 }
 

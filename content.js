@@ -1,5 +1,4 @@
-
-const content= {
+﻿const content= {
     fileHTML:[
       "Home.html",
       "about.html",
