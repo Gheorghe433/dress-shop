@@ -5,12 +5,14 @@ class Cart {
         this.cartButton = null;
         this.closeButton = null;
         this.clearButton = null;
+        this.finalizeButton = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             this.cartPanel = document.getElementById('cart-panel');
             this.cartButton = document.getElementById('cart-btn');
             this.closeButton = document.getElementById('close-cart-btn');
             this.clearButton = document.getElementById('clear-cart-btn');
+            this.finalizeButton = document.getElementById('finalize-order-btn');
 
             this.bindCartEvents();
             this.updateBadge();
@@ -53,7 +55,7 @@ class Cart {
         const amountMatch = priceText.match(/([0-9]+[.,]?[0-9]*)/);
         const amount = amountMatch ? parseFloat(amountMatch[1].replace(',', '.')) : 0;
         const currencyMatch = priceText.match(/(MDL|USD|EUR|RON|lei|Lei|usd|mdl)/i);
-        const currency = currencyMatch ? currencyMatch[0].toUpperCase() : 'MDL';
+        const currency = currencyMatch ? currencyMatch[0].toUpperCase() : 'USD';
         return {
             amount: Number.isFinite(amount) ? amount : 0,
             currency: currency === 'LEI' ? 'MDL' : currency
@@ -66,28 +68,28 @@ class Cart {
 
     getExchangeRates() {
         return {
-            MDL: 1,
-            USD: 18,
-            EUR: 20,
-            RON: 4.5
+            MDL: 1/18,
+            USD: 1,
+            EUR: 20/18,
+            RON: 4.5/18
         };
     }
 
-    convertToMDL(amount, currency) {
+    convertToUSD(amount, currency) {
         const rates = this.getExchangeRates();
-        const rate = rates[currency] || rates.MDL;
+        const rate = rates[currency] || rates.USD;
         return amount * rate;
     }
 
-    getTotalPriceMDL() {
+    getTotalPriceUSD() {
         return this.items.reduce((sum, item) => {
-            const { amount, currency } = this.parsePrice(item.price || '0 MDL');
-            return sum + this.convertToMDL(amount, currency) * item.quantity;
+            const { amount, currency } = this.parsePrice(item.price || '0 USD');
+            return sum + this.convertToUSD(amount, currency) * item.quantity;
         }, 0);
     }
 
-    formatMDL(value) {
-        return `${value.toLocaleString('ro-RO', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} MDL`;
+    formatUSD(value) {
+        return `$${value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
     }
 
     updateBadge() {
@@ -111,6 +113,9 @@ class Cart {
         if (this.closeButton) {
             this.closeButton.addEventListener('click', () => this.hideCartPanel());
         }
+        if (this.finalizeButton) {
+            this.finalizeButton.addEventListener('click', () => this.finalizeOrder());
+        }
         if (this.clearButton) {
             this.clearButton.addEventListener('click', () => {
                 this.items = [];
@@ -118,6 +123,18 @@ class Cart {
                 this.hideCartPanel();
             });
         }
+    }
+
+    finalizeOrder() {
+        if (this.items.length === 0) {
+            alert('Coșul este gol. Adaugă produse înainte de a finaliza comanda.');
+            return;
+        }
+        const total = this.getTotalPriceUSD();
+        alert(`Comanda a fost finalizată! Total: ${this.formatUSD(total)}`);
+        this.items = [];
+        this.saveCart();
+        this.hideCartPanel();
     }
 
     toggleCartPanel() {
@@ -159,11 +176,11 @@ class Cart {
             itemsContainer.innerHTML = '<p style="margin:0; color:#444;">Coșul este gol.</p>';
         } else {
             this.items.forEach(item => {
-                const { amount, currency } = this.parsePrice(item.price || '0 MDL');
-                const amountInMDL = this.convertToMDL(amount, currency);
-                const lineTotal = Math.round(amountInMDL * item.quantity * 100) / 100;
-                const lineTotalText = `${lineTotal.toLocaleString('ro-RO', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} MDL`;
-                const unitPriceText = `${amount.toLocaleString('ro-RO', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${currency}`;
+                const { amount, currency } = this.parsePrice(item.price || '0 USD');
+                const amountInUSD = this.convertToUSD(amount, currency);
+                const lineTotal = Math.round(amountInUSD * item.quantity * 100) / 100;
+                const lineTotalText = this.formatUSD(lineTotal);
+                const unitPriceText = `${amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${currency}`;
 
                 const itemElement = document.createElement('div');
                 itemElement.style.padding = '12px';
@@ -190,8 +207,8 @@ class Cart {
         }
 
         totalItemsNode.textContent = this.getTotalItems();
-        const totalPriceMDL = Math.round(this.getTotalPriceMDL() * 100) / 100;
-        totalPriceNode.textContent = this.formatMDL(totalPriceMDL);
+        const totalPriceUSD = Math.round(this.getTotalPriceUSD() * 100) / 100;
+        totalPriceNode.textContent = this.formatUSD(totalPriceUSD);
     }
 }
 

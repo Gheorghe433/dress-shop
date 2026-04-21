@@ -3,19 +3,19 @@ const products = {
         {
             name: "Polo shirt",
             desc: "Polo shirt lauren",
-            price: "800 MDL",
+            price: "44 USD",
             img: "product-images/Polo shirt.webp"
         },
         {
             name: "Polo sweater",
             desc: "Polo sweater — Ralph Lauren. Cozy, knit pullover for cooler days.",
-            price: "750 MDL",
+            price: "42 USD",
             img: "product-images/polo-sweater.webp"
         },
         {
             name: "Classic Oxford Shirt",
             desc: "Oxford cloth button-down shirt by Ralph Lauren",
-            price: "900 MDL",
+            price: "50 USD",
             img: "product-images/Polo shirt.webp"
         }
     ],
@@ -23,13 +23,13 @@ const products = {
         {
             name: "Polo pants",
             desc: "Polo pants lauren",
-            price: "1000 MDL",
+            price: "56 USD",
             img: "product-images/polo pants.webp"
         },
         {
             name: "Chino Pants",
             desc: "Premium chino pants - comfortable and stylish",
-            price: "950 MDL",
+            price: "53 USD",
             img: "product-images/polo pants.webp"
         }
     ],
@@ -37,13 +37,13 @@ const products = {
         {
             name: "Polo-inspired Sneakers",
             desc: "Classic white sneakers with Polo logo",
-            price: "1100 MDL",
+            price: "61 USD",
             img: "product-images/polo jaket.webp"
         },
         {
             name: "Leather Oxford Shoes",
             desc: "Timeless leather oxford shoes for formal occasions",
-            price: "1500 MDL",
+            price: "83 USD",
             img: "product-images/polo jaket.webp"
         }
     ]

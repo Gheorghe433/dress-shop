@@ -5,7 +5,7 @@ const mockProducts = {
             category: "shirts",
             name: "Polo shirt",
             desc: "Polo shirt lauren",
-            price: "800 MDL",
+            price: "44 USD",
             img: "product-images/polo-jaket.webp"
         },
         {
@@ -13,7 +13,7 @@ const mockProducts = {
             category: "shirts",
             name: "Polo sweater",
             desc: "Polo sweater — Ralph Lauren. Cozy, knit pullover for cooler days.",
-            price: "750 MDL",
+            price: "42 USD",
             img: "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-5462_alternate10?$plpDeskRF$"
         },
         {
@@ -21,7 +21,7 @@ const mockProducts = {
             category: "shirts",
             name: "Classic Oxford Shirt",
             desc: "Oxford cloth button-down shirt by Ralph Lauren",
-            price: "900 MDL",
+            price: "50 USD",
             img: "product-images/Polo shirt.webp"
         }
     ],
@@ -31,7 +31,7 @@ const mockProducts = {
             category: "pants",
             name: "Polo pants",
             desc: "Polo pants lauren",
-            price: "1000 MDL",
+            price: "56 USD",
             img: "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-1469465_alternate1?$plpDeskRF$"
         },
         {
@@ -39,7 +39,7 @@ const mockProducts = {
             category: "pants",
             name: "Chino Pants",
             desc: "Premium chino pants - comfortable and stylish",
-            price: "950 MDL",
+            price: "53 USD",
             img: "product-images/polo pants.webp"
         }
     ],
@@ -49,7 +49,7 @@ const mockProducts = {
             category: "shoes",
             name: "Polo-inspired Sneakers",
             desc: "Classic white sneakers with Polo logo",
-            price: "1100 MDL",
+            price: "61 USD",
             img: "https://photos6.spartoo.co.uk/photos/189/18984042/18984042_1200_A.jpg"
         },
         {
@@ -57,7 +57,7 @@ const mockProducts = {
             category: "shoes",
             name: "Leather Oxford Shoes",
             desc: "Timeless leather oxford shoes for formal occasions",
-            price: "1500 MDL",
+            price: "83 USD",
             img: "https://cdn.shopify.com/s/files/1/1982/6381/files/Belk_d30fed34-8259-4d5b-8567-b4149cc91546_large.png?v=1771266331"
         }
     ]
