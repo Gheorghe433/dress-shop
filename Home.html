@@ -67,6 +67,47 @@
         <button id="finalize-order-btn" type="button" style="width:100%; padding:12px 14px; border-radius:10px; border:none; cursor:pointer; background:#28a745; color:#fff; margin-bottom:8px;">Finalizează comanda</button>
         <button id="clear-cart-btn" type="button" style="width:100%; padding:12px 14px; border-radius:10px; border:none; cursor:pointer; background:#111; color:#fff;">Golește coșul</button>
       </div>
+      <div id="checkout-form-container" style="display:none; margin-top:16px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding:20px; border-radius:15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+        <h3 style="margin:0 0 20px; color:#333; font-size:1.5rem; text-align:center; font-weight:600;">Finalizează comanda</h3>
+        <form id="checkout-form" style="display:flex; flex-direction:column; gap:15px;">
+          <div style="display:flex; gap:10px;">
+            <div style="flex:1;">
+              <label for="first-name" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">Prenume</label>
+              <input type="text" id="first-name" name="first-name" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="Introdu prenumele">
+            </div>
+            <div style="flex:1;">
+              <label for="last-name" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">Nume</label>
+              <input type="text" id="last-name" name="last-name" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="Introdu numele">
+            </div>
+          </div>
+          <div>
+            <label for="address" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">Adresă</label>
+            <input type="text" id="address" name="address" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="Introdu adresa completă">
+          </div>
+          <div>
+            <label for="postal-code" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">Cod poștal</label>
+            <input type="text" id="postal-code" name="postal-code" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="Introdu codul poștal">
+          </div>
+          <div>
+            <label for="card-number" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">Număr card</label>
+            <input type="text" id="card-number" name="card-number" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="1234 5678 9012 3456">
+          </div>
+          <div style="display:flex; gap:10px;">
+            <div style="flex:1;">
+              <label for="expiry" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">Data expirării</label>
+              <input type="text" id="expiry" name="expiry" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="MM/YY">
+            </div>
+            <div style="flex:1;">
+              <label for="cvv" style="display:block; margin-bottom:5px; color:#555; font-weight:500;">CVV</label>
+              <input type="text" id="cvv" name="cvv" required style="width:100%; padding:12px; border:2px solid #e1e5e9; border-radius:8px; font-size:1rem; transition: border-color 0.3s; box-sizing:border-box;" placeholder="123">
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
+            <button type="button" id="cancel-checkout" style="padding:12px 24px; border:2px solid #6c757d; background:white; color:#6c757d; border-radius:8px; cursor:pointer; font-weight:500; transition: all 0.3s;">Anulează</button>
+            <button type="submit" style="padding:12px 24px; border:none; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color:white; border-radius:8px; cursor:pointer; font-weight:500; transition: all 0.3s; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">Plătește</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script src="api.js"></script>
