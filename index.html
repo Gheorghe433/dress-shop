@@ -22,6 +22,7 @@
         <li><a href="Contact.html">Contact</a></li>
         <li><a href="login.html">Login</a></li>
         <li><a href="#">Message</a></li>
+        <li><a href="#reduceri">Reduceri</a></li>
       </ul>
 
       <div style="display:flex; align-items:center; gap:12px;">
@@ -57,10 +58,48 @@
     </section>
 
 
-    <section>
-      <h1></h1>
-      <p></p>
-      <div></div>
+    <!-- Reduceri: produse cu discount 10-20% -->
+    <section id="reduceri" style="padding:32px;">
+      <h2>Reduceri</h2>
+      <p>Produse selectate cu reduceri între 10% și 20%.</p>
+
+      <div class="product-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:16px;">
+        <!-- Produs 1: 20% reducere -->
+        <article class="product-card" style="border:1px solid #ddd; padding:12px; border-radius:8px;">
+          <img src="https://i.pinimg.com/474x/c3/54/e2/c354e2fb10eff981c580d43ef2fc41d4.jpg" alt="Polo Classic" style="width:100%; height:160px; object-fit:cover; border-radius:6px;">
+          <h3 style="margin:8px 0 4px 0;">Polo Classic</h3>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="text-decoration:line-through; color:#888;">349 lei</span>
+            <span style="font-weight:700; color:#c62828;">279 lei</span>
+            <span style="background:#c62828; color:white; padding:2px 6px; border-radius:6px; font-size:12px;">-20%</span>
+          </div>
+          <div style="margin-top:8px; font-size:13px; color:#555;">Clasic, bumbac premium.</div>
+        </article>
+
+        <!-- Produs 2: 15% reducere -->
+        <article class="product-card" style="border:1px solid #ddd; padding:12px; border-radius:8px;">
+          <img src="https://images.augustman.com/wp-content/uploads/sites/2/2023/09/22194440/Untitled-2023-09-22T141257.406.png" alt="Polo Heritage" style="width:100%; height:160px; object-fit:cover; border-radius:6px;">
+          <h3 style="margin:8px 0 4px 0;">Polo Heritage</h3>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="text-decoration:line-through; color:#888;">420 lei</span>
+            <span style="font-weight:700; color:#c62828;">357 lei</span>
+            <span style="background:#c62828; color:white; padding:2px 6px; border-radius:6px; font-size:12px;">-15%</span>
+          </div>
+          <div style="margin-top:8px; font-size:13px; color:#555;">Design retro, finisaje premium.</div>
+        </article>
+
+        <!-- Produs 3: 10% reducere -->
+        <article class="product-card" style="border:1px solid #ddd; padding:12px; border-radius:8px;">
+          <img src="https://i.pinimg.com/474x/5a/3e/9b/5a3e9b0f0f7a6b1b5f4c8a8a6a6b7c8d.jpg" alt="Polo Slim" style="width:100%; height:160px; object-fit:cover; border-radius:6px;">
+          <h3 style="margin:8px 0 4px 0;">Polo Slim</h3>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="text-decoration:line-through; color:#888;">310 lei</span>
+            <span style="font-weight:700; color:#c62828;">279 lei</span>
+            <span style="background:#c62828; color:white; padding:2px 6px; border-radius:6px; font-size:12px;">-10%</span>
+          </div>
+          <div style="margin-top:8px; font-size:13px; color:#555;">Croială slim, material elastic.</div>
+        </article>
+      </div>
     </section>
 
     <button id="but">button</button>

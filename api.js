@@ -6,6 +6,9 @@ const mockProducts = {
             name: "Polo shirt",
             desc: "Polo shirt lauren",
             price: "44 USD",
+            priceNumber: 44,
+            currency: "USD",
+            discountPercent: 20,
             img: "product-images/polo-jaket.webp"
         },
         {
@@ -14,6 +17,9 @@ const mockProducts = {
             name: "Polo sweater",
             desc: "Polo sweater — Ralph Lauren. Cozy, knit pullover for cooler days.",
             price: "42 USD",
+            priceNumber: 42,
+            currency: "USD",
+            discountPercent: 15,
             img: "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-5462_alternate10?$plpDeskRF$"
         },
         {
@@ -22,6 +28,8 @@ const mockProducts = {
             name: "Classic Oxford Shirt",
             desc: "Oxford cloth button-down shirt by Ralph Lauren",
             price: "50 USD",
+            priceNumber: 50,
+            currency: "USD",
             img: "product-images/Polo shirt.webp"
         }
     ],
@@ -50,6 +58,9 @@ const mockProducts = {
             name: "Polo-inspired Sneakers",
             desc: "Classic white sneakers with Polo logo",
             price: "61 USD",
+            priceNumber: 61,
+            currency: "USD",
+            discountPercent: 10,
             img: "https://photos6.spartoo.co.uk/photos/189/18984042/18984042_1200_A.jpg"
         },
         {
@@ -58,6 +69,8 @@ const mockProducts = {
             name: "Leather Oxford Shoes",
             desc: "Timeless leather oxford shoes for formal occasions",
             price: "83 USD",
+            priceNumber: 83,
+            currency: "USD",
             img: "https://cdn.shopify.com/s/files/1/1982/6381/files/Belk_d30fed34-8259-4d5b-8567-b4149cc91546_large.png?v=1771266331"
         }
     ]
@@ -70,16 +83,21 @@ const DUMMYJSON_CATEGORIES = {
 };
 
 const normalizeDummyProduct = (product, targetCategory, productIndex) => {
-    
     const mockImages = mockProducts[targetCategory]?.map(p => p.img) || [];
+    const mockSource = mockProducts[targetCategory]?.[productIndex] || {};
 
     return {
         id: product.id,
         category: targetCategory,
         name: product.title,
         desc: product.description,
+        // prefer numeric price from mock if present, otherwise use product.price
         price: `${product.price} USD`,
-        img: mockImages[productIndex] || product.thumbnail || product.images?.[0] || ''
+        priceNumber: mockSource.priceNumber ?? product.price,
+        currency: mockSource.currency ?? 'USD',
+        // copy discount if mock has it
+        discountPercent: mockSource.discountPercent,
+        img: mockSource.img || mockImages[productIndex] || product.thumbnail || product.images?.[0] || ''
     };
 };
 
