@@ -152,26 +152,11 @@
             categoriesToShow[categoryKey].forEach(product => {
               const card = document.createElement('div');
               card.className = 'produs';
-
-              const currency = product.currency || (product.price && product.price.split(' ').pop()) || 'USD';
-              const priceNumber = Number(product.priceNumber ?? (product.price ? product.price.replace(/[^0-9.]/g, '') : 0)) || 0;
-              let priceHTML = `<p><strong>Preț: ${product.price ? product.price.trim() : priceNumber + ' ' + currency}</strong></p>`;
-              if (product.discountPercent && priceNumber > 0) {
-                const discounted = Math.round(priceNumber * (1 - product.discountPercent / 100));
-                priceHTML = `
-                  <p><strong>
-                    <span style="text-decoration:line-through; color:#888; margin-right:8px;">${priceNumber} ${currency}</span>
-                    <span style="font-weight:700; color:#c62828; margin-right:6px;">${discounted} ${currency}</span>
-                    <span style="background:#c62828; color:white; padding:2px 6px; border-radius:6px; font-size:12px;">-${product.discountPercent}%</span>
-                  </strong></p>
-                `;
-              }
-
               card.innerHTML = `
                 <img src="${product.img}" alt="${product.name.trim()}" loading="lazy">
                 <h3>Ralph Lauren</h3>
                 <p>${product.desc.trim()}</p>
-                ${priceHTML}
+                <p><strong>Preț: ${product.price.trim()}</strong></p>
                 <div style="display:flex; gap:8px; align-items:center;">
                   <button class="buy-btn" data-product-id="${product.id}">buy now</button>
                   <button class="wishlist-btn" data-product-id="${product.id}" style="background:none; border:none; cursor:pointer; font-size:20px; padding:8px;">🤍</button>
