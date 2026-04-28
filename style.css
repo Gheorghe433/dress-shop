@@ -1,14 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 
 :root {
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-head: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   --bg-color: rgba(255,255,255,0.95);
   --text-color: #111;
   --muted-color: #666;
@@ -42,6 +40,7 @@ body {
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
   color: var(--text-color, #111);
@@ -89,22 +88,26 @@ background: linear-gradient(90deg,rgba(8, 7, 7, 1) 0%, rgba(189, 189, 189, 1) 80
 .nav-links a {
   text-decoration: none;
   color: var(--text-color);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 1px;
-  font-size: 30px;
-  font: serif;
-  font-weight: bolder;
-
+  font-size: 20px;
+  font-family: var(--font-head);
+  text-transform: uppercase;
 }
 h1, h2, h3, h4 {
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-head);
   color: var(--text-color);
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
-h1 { font-size: 36px; font-weight: 700; }
-h2 { font-size: 24px; font-weight: 600; }
+h1 { font-size: 40px; font-weight: 800; letter-spacing:-0.5px; }
+h2 { font-size: 26px; font-weight: 700; letter-spacing:-0.2px; }
 h3 { font-size: 18px; font-weight: 600; }
+
+/* Paragraph and product text */
+p, .produs p, .product-card p { font-size:15px; color:var(--muted-color); line-height:1.6; }
+
+.product-card h3, .produs h3 { font-family: var(--font-head); font-size:16px; margin:8px 0 6px 0; color:var(--text-color); }
 
 
 .btn, button {
